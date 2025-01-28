@@ -1,0 +1,4 @@
+some thing new
+
+more things added after the git add command
+
