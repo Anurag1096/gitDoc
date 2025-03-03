@@ -7,12 +7,19 @@
     <title>My Website</title>
 
     <style>
+        #container{
+           width: 400px;
+           height:400px;
+           background-color: green;
+           position: relative;
+           z-index: 2;
+        }
         #square {
-            width: 100px;
-            height: 100px;
+            width: 30px;
+            height: 30px;
             background-color: blue;
             position: absolute;
-
+            z-index: 1;
 
         }
     </style>
@@ -23,20 +30,27 @@
         <h1>My Website</h1>
     </header>
     <main>
-        <div id="square"></div>
+        <div id="container">
+            <div id="square"></div>
+
+
+
+        </div>
     </main>
 
 
     <script>
         const squareBlock = document.getElementById('square')
+        const contain=document.getElementById('container');
         // JavaScript code can go here
         var oldX = 0;
         var oldY = 0;
-        document.addEventListener('mousemove', function () {
+        contain.addEventListener('mousemove', function () {
             const xAxis = event.pageX
             const yAxis = event.pageY
-            squareBlock.style.left = xAxis + 20 + `px`;
-            squareBlock.style.top = yAxis + 10 + `px`;
+            //now when the mouse moves the the square block follows it
+            squareBlock.style.left = xAxis + `px`;
+            squareBlock.style.top = yAxis - 80 + `px`;
             // Detecting the direction of the mouse cursor
             if (xAxis > oldX && yAxis == oldY) {
                 console.log('Direction is east');
@@ -70,7 +84,7 @@
         squareBlock.addEventListener('click', function () {
             console.log('clicked div')
         })
-        //now when the mouse moves the the square block follows it
+        
 
 
 
