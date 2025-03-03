@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>  
+
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Website</title>  
-  
+    <title>My Website</title>
+
     <style>
         #square {
             width: 100px;
             height: 100px;
             background-color: blue;
-            position:absolute;
-            
-            
+            position: absolute;
+
+
         }
     </style>
 </head>
+
 <body>
     <header>
         <h1>My Website</h1>
@@ -26,24 +28,54 @@
 
 
     <script>
-        const squareBlock=document.getElementById('square')
+        const squareBlock = document.getElementById('square')
         // JavaScript code can go here
-        document.addEventListener('mousemove',function(){
-            const xAxis=event.pageX
-            const yAxis=event.pageY
-            squareBlock.style.left=xAxis+ 20 + `px`;
-            squareBlock.style.top=yAxis + 10+`px`;
-            
+        var oldX = 0;
+        var oldY = 0;
+        document.addEventListener('mousemove', function () {
+            const xAxis = event.pageX
+            const yAxis = event.pageY
+            squareBlock.style.left = xAxis + 20 + `px`;
+            squareBlock.style.top = yAxis + 10 + `px`;
+            // Detecting the direction of the mouse cursor
+            if (xAxis > oldX && yAxis == oldY) {
+                console.log('Direction is east');
+            } else if (xAxis == oldX && yAxis > oldY) {
+                console.log('Direction is south')
+            } else if (xAxis == oldX && yAxis < oldY) {
+                console.log('Direction is north')
+            } else if (xAxis < oldX && yAxis == oldY) {
+                console.log('direction is west')
+            } else if (xAxis > oldX && yAxis > oldY) {
+                console.log("South-East");
+            }
+            else if (xAxis > oldX && yAxis < oldY) {
+
+                console.log("North-East");
+            }
+            else if (xAxis < oldX && yAxis > oldY) {
+
+                console.log("South-West")
+            }
+            else if (xAxis < oldX && yAxis < oldY) {
+                console.log("North-West")
+
+            }
+
+            oldX = xAxis
+            oldY = yAxis
+
 
         })
-        squareBlock.addEventListener('click',function(){
-              console.log('clicked div')
+        squareBlock.addEventListener('click', function () {
+            console.log('clicked div')
         })
         //now when the mouse moves the the square block follows it
-    
+
 
 
 
     </script>
 </body>
+
 </html>
