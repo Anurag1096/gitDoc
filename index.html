@@ -49,7 +49,10 @@
             const xAxis = event.pageX
             const yAxis = event.pageY
             //now when the mouse moves the the square block follows it
-            squareBlock.style.left = xAxis + `px`;
+            if(xAxis < 360){
+                squareBlock.style.left = xAxis + `px`;
+                
+            }
             squareBlock.style.top = yAxis - 80 + `px`;
             // Detecting the direction of the mouse cursor
             if (xAxis > oldX && yAxis == oldY) {
