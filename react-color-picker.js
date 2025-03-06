@@ -18,9 +18,16 @@ export default function App() {
   const [message, setMessage] = useState("Hello World!");
   const [color, setColor] = useState("");
   const [mode, setMode] = useState(true);
+  const [isMouseDown, setIsMouseDown] = useState(false);
   const size = 15;
   const totalCells = size * size;
+  // const mouseDrag=document.
   // handling the draw
+  const handleCellAction = (e) => {
+    if (isMouseDown) {
+      e.target.style.backgroundColor = mode ? color : "";
+    }
+  };
   const handelDRaw = () => {
     setMode((prevMode) => (prevMode = true));
   };
@@ -30,49 +37,72 @@ export default function App() {
   };
   // selection of color when clicking
   const handleColorChange = (hex) => {
-    prevColor = hex;
+    setMode(true);
     setColor((prev) => (prev = hex));
   };
   //selection the element and adding to it's color
-  const handleClick = (e, index) => {
-    if (mode) {
-      e.target.style.backgroundColor = color;
-    } else {
-      e.target.style.backgroundColor = "";
-    }
+  const handleClick = (e) => {
+    e.target.style.backgroundColor = mode ? color : "";
   };
 
   return (
-    <div>
-      <div>{message}</div>
       <div>
-        <div className="grid">
-          {Array.from({ length: totalCells }).map((_, index) => (
-            <div
-              key={index}
-              className={`${index % 2 == 0 ? `cell` : `cell-even`} `}
-              onClick={(e, el) => handleClick(e, index)}
-            ></div>
-          ))}
+        <div>{message}</div>
+        <div>
+          <div
+              className="grid"
+              onMouseDown={() => setIsMouseDown(true)}
+              onMouseUp={() => setIsMouseDown(false)}
+              onMouseLeave={() => setIsMouseDown(false)}
+          >
+            {Array.from({ length: totalCells }).map((_, index) => (
+                <div
+                    key={index}
+                    className={`${index % 2 == 0 ? `cell` : `cell-even`} `}
+                    onClick={(e, el) => handleClick(e)}
+                    onMouseDown={(e) => handleCellAction(e)}
+                    onMouseEnter={(e) => handleCellAction(e)}
+                ></div>
+            ))}
+          </div>
         </div>
-      </div>
-      <div>
-        <div onClick={handelDRaw} name="Draw">
-          Draw
+        <div style={{ display: "flex" }}>
+          <div
+              className={`${mode == true ? `active-tab` : `basic-tab`}`}
+              onClick={handelDRaw}
+              name="Draw"
+          >
+            Draw
+          </div>
+          <div
+              className={`${mode == false ? `active-tab` : `basic-tab`}`}
+              name="Erase"
+              onClick={handelErase}
+          >
+            Erase
+          </div>
         </div>
-        <div name="Erase" onClick={handelErase}>
-          Erase
-        </div>
-      </div>
-      <ul>
-        {Object.entries(COLORS).map(([color, hex]) => (
-          <li key={color}>
-            <span onClick={() => handleColorChange(hex)} style={{ color: hex }}>
-              {color}
+        <ul style={{ display: "flex" }}>
+          {Object.entries(COLORS).map(([colorx, hex]) => (
+              <li
+                  style={{ border: `${color == hex ? `1px solid black` : ``}` }}
+                  className="list-style"
+                  key={colorx}
+              >
+            <span
+                onClick={() => handleColorChange(hex)}
+                style={{
+                  color: hex,
+                  backgroundColor: hex,
+                  minWidth: "20px",
+                  minheight: "20px",
+                }}
+            >
+              dfs
             </span>
-          </li>
-        ))}
-      </ul>
-    </div>
+              </li>
+          ))}
+        </ul>
+      </div>
   );
 }
