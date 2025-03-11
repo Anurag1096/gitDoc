@@ -1,0 +1,32 @@
+/**
+ * @param {Number} start - The first number of the resultant array.
+ * @param {Number} end - The value where the resultant array will stop at and not contain it.
+ * @param {Number} step - The step / increment value of each number in the array.
+ * @return {Array<Number>} Returns the array with the sequence of numbers in the specified range.
+ */
+export default function range(start = 0, end, step = 1) {
+  
+  //the progression start form start but not including end.
+  // if start is negetive then step becomes -1 if end is undefined or no step
+  //end not specified it's set to start with start then set to 0.
+  //---
+
+  let res=[];
+  if(!end) {
+    end=start;
+    start=0;
+  }
+
+  if(end < start && step ===1) {
+    step=-1;
+  }
+
+  const length=(end-start) / (step || 1);
+
+  for(let i=0;i<length;i++){
+    res.push(start +i * step);
+  } 
+
+ return res
+
+}
