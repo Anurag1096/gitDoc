@@ -1,0 +1,11 @@
+/**
+ * @param {...Function} args
+ * @returns Function
+ */
+export default function compose(...fns) {
+  return function(args){
+    return fns.reduceRight(function(acc,fns){
+      return fns(acc)
+    },args)
+  }
+}
