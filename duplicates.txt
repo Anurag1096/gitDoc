@@ -1,0 +1,21 @@
+/**
+ * @param {number[]} numbers
+ * @return {boolean}
+ */
+export default function findDuplicates(numbers) {
+let res=numbers.reduce((acc,crr)=>{
+  if(!acc[crr]){
+    acc[crr]=1
+  }else{
+    acc[crr]+=1
+  }
+  return acc
+},{})
+
+  for (let key in res) {
+    if (res[key] > 1) {
+      return true;
+    }
+  }
+  return false
+}
